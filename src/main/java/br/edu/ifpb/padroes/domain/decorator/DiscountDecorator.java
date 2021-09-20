@@ -10,6 +10,7 @@ public class DiscountDecorator extends PizzaDecorator{
 	
 	public void discountCoupon() {
 		doDiscountCoupon();
+		super.getPrice();
 	}
 	
 	private Float doDiscountCoupon() {
