@@ -4,6 +4,9 @@ import br.edu.ifpb.padroes.api.damenos.DamenosPizza;
 import br.edu.ifpb.padroes.api.pizzahot.PizzaHotPizza;
 import br.edu.ifpb.padroes.domain.Pizza;
 import br.edu.ifpb.padroes.domain.PizzaShopPizza;
+import br.edu.ifpb.padroes.domain.decorator.DiscountDecorator;
+import br.edu.ifpb.padroes.domain.decorator.ExtraCheeseDecorator;
+import br.edu.ifpb.padroes.domain.decorator.PizzaSimples;
 import br.edu.ifpb.padroes.service.PizzaShopService;
 
 public class Main {
@@ -13,20 +16,23 @@ public class Main {
         PizzaShopService pizzaShopService = new PizzaShopService();
 
         System.out.println("Pizzas - menu");
-
-        // TODO - implementar adapter para juntar as pizzas da PizzaHot e Damenos em um único conjunto
-        for (PizzaHotPizza pizza : pizzaShopService.getPizzasPizzaHot()) {
-            System.out.println(String.format("%s - %.2f", pizza.getTopping(), pizza.getPrice()));
-        }
-        for (DamenosPizza pizza : pizzaShopService.getPizzasDamenos()) {
-            System.out.println(String.format("%s - %.2f", pizza.getName(), pizza.getCost()));
+        
+        for(Pizza pizza: pizzaShopService.getPizzas()) {
+        	System.out.println(String.format("%s - %.2f", pizza.getName(), pizza.getPrice()));
         }
 
         Pizza pizza = new PizzaShopPizza("pepperoni", 55.0f);
 
+        Pizza pizzaDecorada = new DiscountDecorator(new PizzaSimples(pizza.getName(), pizza.getPrice()));
+//        pizzaDecorada = new ExtraCheeseDecorator(new PizzaSimples(pizza.getName(), pizza.getPrice()));
+        
+        pizzaDecorada.getPrice();
+        pizzaDecorada.getName();
         // TODO - implementar padrão decorator para só precisar passar o objeto pizza
         pizzaShopService.orderPizza(pizza, true, true, false, true);
 
     }
+
+
 
 }
