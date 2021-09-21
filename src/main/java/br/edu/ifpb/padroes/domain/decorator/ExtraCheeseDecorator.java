@@ -4,20 +4,28 @@ import br.edu.ifpb.padroes.domain.Pizza;
 
 public class ExtraCheeseDecorator extends PizzaDecorator{
 	
+	private Float increase = 1.10f;
+	private String increaseName = " (extra cheese)";
+	
 	public ExtraCheeseDecorator(Pizza pizzaDecorada) {
 		super(pizzaDecorada);
 	}
 	
-	public void ExtraCheese() {
-		doDiscountCoupon();
-		super.getPrice();
+	public void doExtraCheese(Float price, String name) {
+		setIncrease(price, name);
 	}
 	
-	private void doDiscountCoupon() {
-		Float price = super.getPrice();
-		price *= 0.25f;
-		String name = super.getName();
-		name += " (extra cheese)";
+	public Float getPrice() {
+		return increase;			
+	}
+	
+	public String getName() {
+		return increaseName;			
+	}
+	
+	public void setIncrease(Float price, String name) {
+		increase *= price;
 		
+		name += increaseName;
 	}
 }

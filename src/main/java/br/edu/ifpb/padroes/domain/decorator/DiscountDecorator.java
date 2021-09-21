@@ -4,18 +4,29 @@ import br.edu.ifpb.padroes.domain.Pizza;
 
 public class DiscountDecorator extends PizzaDecorator{
 	
-	public DiscountDecorator(Pizza pizzaDecorada) {
-		super(pizzaDecorada);
+	private Float discount = 0.25f;
+	
+	public DiscountDecorator(Pizza pizza) {
+		super(pizza);
 	}
 	
-	public void discountCoupon() {
-		doDiscountCoupon();
-		super.getPrice();
+	public void discountCoupon(Float price) {
+		doDiscountCoupon(price);
 	}
 	
-	private Float doDiscountCoupon() {
-		Float price = super.getPrice();
-		price *= 0.25f;
-		return price;
+	private void doDiscountCoupon(Float price) {
+		setDiscount(price);
+	}
+	
+	public Float getPrice() {
+		return discount;			
+	}
+	
+	public void setDiscount(Float price) {
+		discount *= price;
+		
+		discount -= price;
+		
+		discount *= -1;
 	}
 }
